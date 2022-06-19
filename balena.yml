@@ -8,11 +8,7 @@ assets:
   repository:
     type: blob.asset
     data:
-      url: 'https://github.com/RAKWireless/udp-packet-forwarder'
-  logo:
-    type: blob.asset
-    data:
-      url: https://raw.githubusercontent.com/RAKWireless/udp-packet-forwarder/master/logo.png
+      url: 'https://github.com/alexissusset/helium-rak2245-balena'
 data:
   applicationConfigVariables:
     - BALENA_HOST_CONFIG_dtoverlay: '"disable-bt"'
@@ -29,9 +25,9 @@ data:
     - SERVER_HOST: "helium-miner"
     - SERVER_PORT: "1680"
     - MINER_UPDATE: true
-  #  - SPI_SPEED: "2000000"
-  #  - BAND: "as_915_928"
-  #  - REGION_OVERRIDE: "AS923_1"
+    - SPI_SPEED: "2000000"
+    - BAND: "as_915_928"
+    - REGION_OVERRIDE: "AS923_1"
   defaultDeviceType: raspberrypi4-64
   supportedDeviceTypes:
     - fincm3
