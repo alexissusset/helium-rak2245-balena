@@ -1,14 +1,18 @@
-name: udp-packet-forwarder
-description: This project deploys a LoRaWAN gateway with UDP Packet Forwarder protocol using Docker. It runs on a Raspberry Pi 3/4, Compute Module 3/4 or balenaFin with SX1301, SX1302, SX1303 or SX1308 LoRa concentrators.
-fleetcta: Add LoRaWAN module
-joinable: false
-post-provisioning: Read correct config in the repo README - https://github.com/RAKWireless/udp-packet-forwarder >> Add GATEWAY_EUI and change BAND and REGION and CONCENTRATOR variables
+name: Helium Data Hotspot
 type: sw.application
+description: Deploys the Helium Data Only Hotspot with RAK2245 concentrator
+joinable: false
+post-provisioning: Read correct config in the repo README - https://github.com/RAKWireless/udp-packet-forwarder make sure to update GATEWAY_EUI and change BAND and REGION and CONCENTRATOR variables
 assets:
   repository:
     type: blob.asset
     data:
       url: 'https://github.com/alexissusset/helium-rak2245-balena'
+  logo:
+    type: blob.asset
+    data:
+      url: >-
+        https://raw.githubusercontent.com/mpous/helium-data-hotspot/main/logo.png
 data:
   applicationConfigVariables:
     - BALENA_HOST_CONFIG_dtoverlay: '"disable-bt"'
