@@ -1,9 +1,16 @@
 #!/bin/bash
+echo "Starting start-gateway.sh"
 
-echo "Starting start-gatewayrs.sh"
-
-rm -f settings.toml
 rm -f /etc/helium_gateway/settings.toml
+
+# Download latest Helium settings file
+if wget -q -O /etc/helium_gateway/settings.toml.template https://raw.githubusercontent.com/helium/gateway-rs/main/config/default.toml;
+then
+  echo "Lastest Helium Gateway settings file succesfully downloaded"
+else
+  echo "ERROR downloading lastest Helium Gateway settings file" 
+  exit 1
+fi
 
 echo "Checking for I2C device"
 
@@ -24,8 +31,8 @@ done
 echo "Setting REGION_OVERRIDE"
 if [[ -v REGION_OVERRIDE ]]
 then
-  echo "REGION_OVERRED is set to ${REGION_OVERRIDE}"
-  echo 'region = "'"${REGION_OVERRIDE}\"" >> settings.toml
+  echo "REGION_OVERRIDE is set to ${REGION_OVERRIDE}"
+  sed -i -e '/region =/ s/= .*/= "'"${REGION_OVERRIDE}"'"/' /etc/helium_gateway/settings.toml.template
 else
   echo "REGION_OVERRIDE not set"
   exit 1
@@ -37,22 +44,19 @@ then
   echo "Using ECC for public key."
   if [[ -v GW_KEYPAIR ]]
   then
-    echo 'keypair = "'${GW_KEYPAIR}'"' >> settings.toml
+    sed -i -e '/keypair =/ s/= .*/= "'"${GW_KEYPAIR}"'"/' /etc/helium_gateway/settings.toml.template
   else
-    echo 'keypair = "ecc://i2c-1:96&slot=0"' >> settings.toml
+    sed -i -e '/keypair =/ s/= .*/= "ecc://i2c-1:96&slot=0"/' /etc/helium_gateway/settings.toml.template
   fi
 else
   echo "Key file already exists"
-  echo 'keypair = "/var/data/gateway_key.bin"' >> settings.toml
+  sed -i -e '/keypair =/ s/= .*/= "\/var\/data\/gateway_key.bin"/' /etc/helium_gateway/settings.toml.template
 fi
 
-cat /etc/helium_gateway/settings.toml.template >> settings.toml
-cp settings.toml /etc/helium_gateway/settings.toml
-
+mv /etc/helium_gateway/settings.toml.template /etc/helium_gateway/settings.toml
 
 echo "Calling helium_gateway server ..."
 /usr/bin/helium_gateway -c /etc/helium_gateway server
-
 
 echo "Checking key info..."
 if ! PUBLIC_KEYS=$(/usr/bin/helium_gateway -c /etc/helium_gateway key info)
