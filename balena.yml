@@ -18,20 +18,22 @@ data:
     - BALENA_HOST_CONFIG_dtoverlay: '"disable-bt"'
     - BALENA_HOST_CONFIG_enable_uart: 1
   applicationEnvironmentVariables:
-    - MODEL: "RAK2245"
-    - CONCENTRATOR: "SX1301"
-    - INTERFACE: "SPI"
-    - RADIO_DEV: "/dev/spidev0.0"
-    - GPS_DEV: "/dev/ttyAMA0"
-    - RESET_GPIO: 17
-    - POWER_EN_GPIO: 0
-    - POWER_EN_LOGIC: 0
     - SERVER_HOST: "helium-miner"
     - SERVER_PORT: "1680"
-    - MINER_UPDATE: true
-    - SPI_SPEED: "2000000"
-    - BAND: "as_915_928"
-    - REGION_OVERRIDE: "AS923_1"
+  # You will need to set the bellow three variables in your Balena Application
+  #  - MODEL: "RAK2245" ## 
+  #  - BAND: "as_915_928"
+  #  - REGION_OVERRIDE: "AS923_1"
+  ## Bellow are optional parameters for RAK UDP Packet Forwarder, you can check all options at https://github.com/RAKWireless/udp-packet-forwarder
+  #  - CONCENTRATOR: "SX1301"
+  #  - INTERFACE: "SPI"
+  #  - RADIO_DEV: "/dev/spidev0.0"
+  #  - GPS_DEV: "/dev/ttyAMA0"
+  #  - RESET_GPIO: 17
+  #  - POWER_EN_GPIO: 0
+  #  - POWER_EN_LOGIC: 0
+  #  - MINER_UPDATE: true
+  #  - SPI_SPEED: "2000000"
   defaultDeviceType: raspberrypi4-64
   supportedDeviceTypes:
     - fincm3

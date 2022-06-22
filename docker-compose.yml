@@ -20,6 +20,7 @@ services:
     privileged: true
     expose:
       - "1680"
+      - "44158"
     ports:
       - "44158:44158/tcp"
     volumes:

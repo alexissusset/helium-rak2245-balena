@@ -4,3 +4,7 @@ Running this project is as simple as deploying it to a balenaCloud application. 
 
 [![](https://www.balena.io/deploy.png)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/alexissusset/helium-rak2245-balena)
 
+### TODO
+Check and add persistent storage for Helium Gateway key
+Document deployment and configuration
+Add support for cellular connectivity management
